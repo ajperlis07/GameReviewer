@@ -39,7 +39,7 @@ class GameReviewer
   def create_review
     puts "How did you feel about #{@video_game.title.capitalize}? Rate 1-10"
     answer2 = gets.chomp.to_i
-    @video_game_review = VideoGameReview.create(video_game_rating: answer2)
+    @video_game_review = VideoGameReview.create(video_game_rating: answer2, user_id: @user.id, video_game_id: @video_game.id)
     sleep(1)
     puts "Thank you for your review of #{@video_game.title.capitalize} with a rating of #{@video_game_review.video_game_rating}!"
   end
@@ -60,7 +60,8 @@ class GameReviewer
     if answer4 == "yes"
       puts "What would you like to change the rating to?"
       answer5 = gets.chomp.to_i
-      VideoGameReview.update(video_game_rating: answer5)
+      #binding.pry
+      @video_game_review.update(video_game_rating: answer5)
       puts "Thank you for the update of #{@video_game.title.capitalize} to #{@video_game_review.video_game_rating}!"
     else 
       puts "Enjoy your day!"

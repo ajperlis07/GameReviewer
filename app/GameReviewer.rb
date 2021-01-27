@@ -61,7 +61,7 @@ class GameReviewer
       puts "What would you like to change the rating to?"
       answer5 = gets.chomp.to_i
       @video_game_review.update(video_game_rating: answer5)
-      puts "Thank you for the update of #{@video_game.title.capitalize} to #{@video_game_review.video_game_rating}!"
+      puts "Thank you for the update of #{@video_game.title.titleize} to #{@video_game_review.video_game_rating}!"
     else 
       puts "Great news!!!!"
       exit

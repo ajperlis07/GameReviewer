@@ -11,7 +11,7 @@ class GameReviewer
     create_review
     read_review
     update_review
-    # exit
+    delete_user
   end
 
   def welcome
@@ -33,7 +33,7 @@ class GameReviewer
     answer1 = gets.chomp.downcase
     @video_game = VideoGame.find_or_create_by(title: answer1)
     sleep(1)
-    puts "You selected #{@video_game.title.capitalize}!"
+    puts "You selected #{@video_game.title.titleize}!"
   end
 
   def create_review
@@ -60,15 +60,25 @@ class GameReviewer
     if answer4 == "yes"
       puts "What would you like to change the rating to?"
       answer5 = gets.chomp.to_i
-      #binding.pry
       @video_game_review.update(video_game_rating: answer5)
       puts "Thank you for the update of #{@video_game.title.capitalize} to #{@video_game_review.video_game_rating}!"
     else 
-      puts "Enjoy your day!"
+      puts "Great news!!!!"
+      exit
     end
   end
 
-  private
-
-  
+  def delete_user
+    puts "#{@user.name.capitalize}, are you happy with your service?"
+    answer6 = gets.chomp.downcase
+    if answer6 == "yes" 
+      puts "Great!, enjoy your day!!!"
+      exit
+    else 
+      @user.destroy
+      puts "🔥 🔥 🔥 GAME OVER!!! 🔥 🔥 🔥"
+      sleep(5)
+      exit
+    end
+  end
 end

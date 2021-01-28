@@ -69,15 +69,21 @@ class GameReviewer
       #look at all reviews that @user has and print to the screen.
 
   def update_review
-    puts "Would you like change your review of #{@video_game.title.capitalize}?"
+    puts "Would you like to update any of your reviews? yes/no"
     answer4 = gets.chomp.downcase
     if answer4 == "yes"
-      puts "What would you like to change the rating to?"
-      answer5 = gets.chomp.to_i
-      @video_game_review.update(video_game_rating: answer5)
-      puts "Thank you for the update of #{@video_game.title.titleize} to #{@video_game_review.video_game_rating}!"
-    else 
-      puts "Great news!!!!"
+      puts "What game would you want to choose?"
+      answer5 = gets.chomp
+      videogame = VideoGame.find_by(title: answer5)
+      review = VideoGameReview.find_by(video_game_id: videogame.id, user_id: @user.id)
+      puts "You gave #{videogame.title} a rating of #{review.video_game_rating}. What would you like to change it to?"
+      new_review = gets.chomp.to_i
+      review.update(video_game_rating: new_review)
+      system "reload"
+      @user.reload
+      puts "Thank you for updating #{videogame.title} with a rating of #{review.video_game_rating}!"
+    else
+      puts "Great!"
     end
   end
 

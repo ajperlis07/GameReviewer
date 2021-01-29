@@ -53,19 +53,19 @@ class GameReviewer
 
 
     def read_all_reviews
-    puts "Would you like to see all of your reviews? yes/no"
-    answer6 = gets.chomp
-    if answer6 == "yes"
-    @user.video_game_reviews.each do |review|
-      puts "You reviewed #{review.video_game.title} and gave it a rating of #{review.video_game_rating}!"
-        # puts "You reviewed #{review.id}"
-        # puts "you rated #{review.video_game_rating}"
-        # puts "title: #{review.video_game.title}"
+      puts "Would you like to see all of your reviews? yes/no"
+      answer6 = gets.chomp
+      if answer6 == "yes"
+        @user.video_game_reviews.each do |review|
+          puts "You reviewed #{review.video_game.title} and gave it a rating of #{review.video_game_rating}!"
+          # puts "You reviewed #{review.id}"
+          # puts "you rated #{review.video_game_rating}"
+          # puts "title: #{review.video_game.title}"
+        end
+      else
+        puts "Great!"
       end
-    else
-      puts "Great!"
     end
-  end
       #look at all reviews that @user has and print to the screen.
 
   def update_review
@@ -79,7 +79,6 @@ class GameReviewer
       puts "You gave #{videogame.title} a rating of #{review.video_game_rating}. What would you like to change it to?"
       new_review = gets.chomp.to_i
       review.update(video_game_rating: new_review)
-      system "reload"
       @user.reload
       puts "Thank you for updating #{videogame.title} with a rating of #{review.video_game_rating}!"
     else
@@ -94,6 +93,8 @@ class GameReviewer
       puts "Great!, enjoy your day!!!"
       exit
     else 
+      @user.video_game_reviews.destroy_all
+      # destroy_user = VideoGameReview.find_by
       @user.destroy
       puts "🔥 🔥 🔥 GAME OVER!!! 🔥 🔥 🔥"
       sleep(5)
